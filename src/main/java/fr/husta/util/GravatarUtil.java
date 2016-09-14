@@ -8,7 +8,8 @@ import org.apache.commons.lang3.StringUtils;
 public class GravatarUtil
 {
 
-    public static String GRAVATAR_IMAGE_REQUEST_URL_PREFIX = "http://www.gravatar.com/avatar/";
+    public static final String GRAVATAR_IMAGE_REQUEST_URL_PREFIX = "http://www.gravatar.com/avatar/";
+    public static final String GRAVATAR_PROFILE_REQUEST_URL_PREFIX = "http://www.gravatar.com/";
 
     /**
      * Inspired from <a href="https://fr.gravatar.com/site/implement/hash/">Creating the Hash</a> (Gravatar.com).
@@ -17,7 +18,7 @@ public class GravatarUtil
      * <li>Force all characters to lower-case</li>
      * <li>md5 hash the final string</li>
      * </ul>
-     * 
+     *
      * @param email Email address.
      * @return MD5 hash
      */
@@ -29,7 +30,7 @@ public class GravatarUtil
 
     /**
      * Inspired from <a href="https://fr.gravatar.com/site/implement/images/">Image Requests</a> (Gravatar.com).
-     * 
+     *
      * @param emailHash Must be MD5 hash for email.
      * @return
      */
@@ -38,8 +39,23 @@ public class GravatarUtil
         try
         {
             return new URL(GRAVATAR_IMAGE_REQUEST_URL_PREFIX + emailHash);
+        } catch (MalformedURLException e)
+        {
+            throw new RuntimeException(e);
         }
-        catch (MalformedURLException e)
+    }
+
+    /**
+     * @param emailHash Must be MD5 hash for email.
+     * @param size      Size in pixels
+     * @return
+     */
+    public static URL getImageURLWithSize(final String emailHash, final int size)
+    {
+        try
+        {
+            return new URL(GRAVATAR_IMAGE_REQUEST_URL_PREFIX + emailHash + "?size=" + size);
+        } catch (MalformedURLException e)
         {
             throw new RuntimeException(e);
         }
@@ -47,7 +63,7 @@ public class GravatarUtil
 
     /**
      * Inspired from <a href="https://fr.gravatar.com/site/implement/images/">Image Requests</a> (Gravatar.com).
-     * 
+     *
      * @param emailHash Must be MD5 hash for email.
      * @return Return the HTML <code>img</code> tag with <code>src</code> attribute.
      */
@@ -57,6 +73,67 @@ public class GravatarUtil
         final boolean addImgExtension = false;
         URL imageUrl = getImageURL(emailHash);
         return "<img src=\"" + imageUrl.toString() + (addImgExtension ? IMG_EXTENSION : "") + "\" />";
+    }
+
+    /**
+     * Inspired from <a href="https://fr.gravatar.com/site/implement/profiles/">Profile Requests</a> (Gravatar.com).
+     *
+     * @param emailHash Must be MD5 hash for email.
+     * @return
+     */
+    public static URL getProfileURL(final String emailHash)
+    {
+        try
+        {
+            return new URL(GRAVATAR_PROFILE_REQUEST_URL_PREFIX + emailHash);
+        } catch (MalformedURLException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static URL getProfileURLFormatXml(final String emailHash)
+    {
+        try
+        {
+            return new URL(GRAVATAR_PROFILE_REQUEST_URL_PREFIX + emailHash + ".xml");
+        } catch (MalformedURLException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static URL getProfileURLFormatJson(final String emailHash)
+    {
+        try
+        {
+            return new URL(GRAVATAR_PROFILE_REQUEST_URL_PREFIX + emailHash + ".json");
+        } catch (MalformedURLException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static URL getProfileURLFormatQRCode(final String emailHash)
+    {
+        try
+        {
+            return new URL(GRAVATAR_PROFILE_REQUEST_URL_PREFIX + emailHash + ".qr");
+        } catch (MalformedURLException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static URL getProfileURLFormatVCard(final String emailHash)
+    {
+        try
+        {
+            return new URL(GRAVATAR_PROFILE_REQUEST_URL_PREFIX + emailHash + ".vcf");
+        } catch (MalformedURLException e)
+        {
+            throw new RuntimeException(e);
+        }
     }
 
 }

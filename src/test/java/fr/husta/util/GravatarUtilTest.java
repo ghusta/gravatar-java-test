@@ -10,6 +10,9 @@ import org.junit.Test;
 public class GravatarUtilTest
 {
 
+    private static final String EMAIL_TOTO = "toto@site.com";
+    private static final String EMAIL_GUILLAUME_HUSTA = "guillaume.husta@gmail.com";
+
     @BeforeClass
     public static void setUpBeforeClass() throws Exception
     {
@@ -22,11 +25,10 @@ public class GravatarUtilTest
         String hash = null;
 
         // TEST #1
-        email = "toto@site.com";
+        email = EMAIL_TOTO;
         hash = GravatarUtil.getMD5ForEmail(email);
         Assert.assertNotNull(hash);
         System.out.println("--> " + hash);
-
     }
 
     @Test
@@ -36,11 +38,58 @@ public class GravatarUtilTest
         URL url = null;
 
         // TEST #1
-        email = "toto@site.com";
+        email = EMAIL_TOTO;
         url = GravatarUtil.getImageURL(GravatarUtil.getMD5ForEmail(email));
         Assert.assertNotNull(url);
         System.out.println("--> " + url);
+    }
 
+    @Test
+    public void testGetImageURL_forGHUSTA() throws Exception
+    {
+        String email = null;
+        URL url = null;
+
+        email = EMAIL_GUILLAUME_HUSTA;
+        url = GravatarUtil.getImageURL(GravatarUtil.getMD5ForEmail(email));
+        Assert.assertNotNull(url);
+        System.out.println("GH --> " + url);
+    }
+
+    @Test
+    public void testGetImageURL_forGHUSTA_size400() throws Exception
+    {
+        String email = null;
+        URL url = null;
+
+        email = EMAIL_GUILLAUME_HUSTA;
+        url = GravatarUtil.getImageURLWithSize(GravatarUtil.getMD5ForEmail(email), 400);
+        Assert.assertNotNull(url);
+        System.out.println("GH (400) --> " + url);
+    }
+
+    @Test
+    public void testGetProfileURL_forGHUSTA() throws Exception
+    {
+        String email = null;
+        URL url = null;
+
+        email = EMAIL_GUILLAUME_HUSTA;
+        url = GravatarUtil.getProfileURL(GravatarUtil.getMD5ForEmail(email));
+        Assert.assertNotNull(url);
+        System.out.println("GH (Profile) --> " + url);
+    }
+
+    @Test
+    public void testGetProfileURL_forGHUSTA_JSON() throws Exception
+    {
+        String email = null;
+        URL url = null;
+
+        email = EMAIL_GUILLAUME_HUSTA;
+        url = GravatarUtil.getProfileURLFormatJson(GravatarUtil.getMD5ForEmail(email));
+        Assert.assertNotNull(url);
+        System.out.println("GH (Profile) --> " + url);
     }
 
     @Test
@@ -50,7 +99,7 @@ public class GravatarUtilTest
         String htmlImgTag = null;
 
         // TEST #1
-        email = "toto@site.com";
+        email = EMAIL_TOTO;
         htmlImgTag = GravatarUtil.getHtmlImageTag(GravatarUtil.getMD5ForEmail(email));
         Assert.assertNotNull(htmlImgTag);
         System.out.println("--> " + htmlImgTag);
