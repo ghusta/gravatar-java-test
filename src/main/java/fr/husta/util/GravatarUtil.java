@@ -64,6 +64,43 @@ public class GravatarUtil
     /**
      * Inspired from <a href="https://fr.gravatar.com/site/implement/images/">Image Requests</a> (Gravatar.com).
      *
+     * @param emailHash    Must be MD5 hash for email.
+     * @param defaultImage Default image type
+     * @return
+     */
+    public static URL getImageURLWithDefault(final String emailHash, GravatarDefaultImageType defaultImage)
+    {
+        try
+        {
+            return new URL(GRAVATAR_IMAGE_REQUEST_URL_PREFIX + emailHash + "?default=" + defaultImage.getQueryParam());
+        } catch (MalformedURLException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * Inspired from <a href="https://fr.gravatar.com/site/implement/images/">Image Requests</a> (Gravatar.com).
+     *
+     * @param emailHash    Must be MD5 hash for email.
+     * @param size         Size in pixels
+     * @param defaultImage Default image type
+     * @return
+     */
+    public static URL getImageURLWithSizeAndDefault(final String emailHash, final int size, GravatarDefaultImageType defaultImage)
+    {
+        try
+        {
+            return new URL(GRAVATAR_IMAGE_REQUEST_URL_PREFIX + emailHash + "?size=" + size + "&default=" + defaultImage.getQueryParam());
+        } catch (MalformedURLException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * Inspired from <a href="https://fr.gravatar.com/site/implement/images/">Image Requests</a> (Gravatar.com).
+     *
      * @param emailHash Must be MD5 hash for email.
      * @return Return the HTML <code>img</code> tag with <code>src</code> attribute.
      */

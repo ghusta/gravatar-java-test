@@ -69,6 +69,17 @@ public class GravatarUtilTest
     }
 
     @Test
+    public void testGetImageURL_withDefault() throws Exception
+    {
+        String email = null;
+        URL url = null;
+
+        url = GravatarUtil.getImageURLWithDefault("123", GravatarDefaultImageType.mm);
+        Assert.assertNotNull(url);
+        System.out.println("Default Avatar --> " + url);
+    }
+
+    @Test
     public void testGetProfileURL_forGHUSTA() throws Exception
     {
         String email = null;
