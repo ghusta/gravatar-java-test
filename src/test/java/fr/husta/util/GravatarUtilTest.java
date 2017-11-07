@@ -21,11 +21,34 @@ public class GravatarUtilTest
     @Test
     public void testGetMD5ForEmail() throws Exception
     {
-        String email = null;
-        String hash = null;
+        String email;
+        String hash;
 
-        // TEST #1
         email = EMAIL_TOTO;
+        hash = GravatarUtil.getMD5ForEmail(email);
+        Assert.assertNotNull(hash);
+        System.out.println("--> " + hash);
+    }
+
+    @Test
+    public void testGetMD5ForEmail_null() throws Exception
+    {
+        String email;
+        String hash;
+
+        email = null;
+        hash = GravatarUtil.getMD5ForEmail(email);
+        Assert.assertNotNull(hash);
+        System.out.println("--> " + hash);
+    }
+
+    @Test
+    public void testGetMD5ForEmail_empty() throws Exception
+    {
+        String email;
+        String hash;
+
+        email = "";
         hash = GravatarUtil.getMD5ForEmail(email);
         Assert.assertNotNull(hash);
         System.out.println("--> " + hash);

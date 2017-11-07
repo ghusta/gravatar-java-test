@@ -24,7 +24,8 @@ public class GravatarUtil
      */
     public static String getMD5ForEmail(final String email)
     {
-        String normalizedEmail = StringUtils.lowerCase(StringUtils.trim(email));
+        String normalizedEmail =
+                StringUtils.lowerCase(StringUtils.trim(StringUtils.defaultString(email)));
         return MD5Util.md5Hex(normalizedEmail);
     }
 
