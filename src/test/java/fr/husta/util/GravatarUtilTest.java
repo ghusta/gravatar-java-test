@@ -100,6 +100,14 @@ public class GravatarUtilTest
         url = GravatarUtil.getImageURLWithDefault("123", GravatarDefaultImageType.mm);
         Assert.assertNotNull(url);
         System.out.println("Default Avatar --> " + url);
+
+        url = GravatarUtil.getImageURLWithDefault("123", GravatarDefaultImageType.retro);
+        Assert.assertNotNull(url);
+        System.out.println("Default Avatar (retro) --> " + url);
+
+        url = GravatarUtil.getImageURLWithDefault("123", GravatarDefaultImageType.identicon);
+        Assert.assertNotNull(url);
+        System.out.println("Default Avatar (identicon) --> " + url);
     }
 
     @Test
