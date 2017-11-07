@@ -65,7 +65,7 @@ public class GravatarUtilTest
         email = EMAIL_GUILLAUME_HUSTA;
         url = GravatarUtil.getImageURLWithSize(GravatarUtil.getMD5ForEmail(email), 400);
         Assert.assertNotNull(url);
-        System.out.println("GH (400) --> " + url);
+        System.out.println("GH (400 px) --> " + url);
     }
 
     @Test
@@ -77,6 +77,17 @@ public class GravatarUtilTest
         url = GravatarUtil.getImageURLWithDefault("123", GravatarDefaultImageType.mm);
         Assert.assertNotNull(url);
         System.out.println("Default Avatar --> " + url);
+    }
+
+    @Test
+    public void testGetImageURL_withSizeAndDefault() throws Exception
+    {
+        String email = null;
+        URL url = null;
+
+        url = GravatarUtil.getImageURLWithSizeAndDefault("123", 40, GravatarDefaultImageType.mm);
+        Assert.assertNotNull(url);
+        System.out.println("Default Avatar (40 px) --> " + url);
     }
 
     @Test
