@@ -11,15 +11,6 @@ import java.security.NoSuchAlgorithmException;
 public class MD5Util
 {
 
-    private static String hex(byte[] array)
-    {
-        StringBuilder sb = new StringBuilder();
-        for (byte b : array) {
-            sb.append(Integer.toHexString((b & 0xFF) | 0x100).substring(1, 3));
-        }
-        return sb.toString();
-    }
-
     public static String md5Hex(String message)
     {
         try
@@ -31,6 +22,15 @@ public class MD5Util
         {
         }
         return null;
+    }
+
+    private static String hex(byte[] array)
+    {
+        StringBuilder sb = new StringBuilder();
+        for (byte b : array) {
+            sb.append(Integer.toHexString((b & 0xFF) | 0x100).substring(1, 3));
+        }
+        return sb.toString();
     }
 
 }
