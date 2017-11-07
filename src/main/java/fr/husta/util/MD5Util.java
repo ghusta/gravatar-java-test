@@ -7,27 +7,19 @@ import java.security.NoSuchAlgorithmException;
 /**
  * Inspired from <a href="https://fr.gravatar.com/site/implement/images/java/">Java Image Requests</a> (Gravatar.com).
  * 
- * @author HUSTA
- *
  */
 public class MD5Util
 {
 
     private static String hex(byte[] array)
     {
-        StringBuffer sb = new StringBuffer();
-        for (int i = 0; i < array.length; ++i)
-        {
-            sb.append(Integer.toHexString((array[i] & 0xFF) | 0x100).substring(1, 3));
+        StringBuilder sb = new StringBuilder();
+        for (byte b : array) {
+            sb.append(Integer.toHexString((b & 0xFF) | 0x100).substring(1, 3));
         }
         return sb.toString();
     }
 
-    /**
-     * 
-     * @param message
-     * @return
-     */
     public static String md5Hex(String message)
     {
         try
@@ -35,10 +27,7 @@ public class MD5Util
             MessageDigest md = MessageDigest.getInstance("MD5");
             return hex(md.digest(message.getBytes("CP1252")));
         }
-        catch (NoSuchAlgorithmException e)
-        {
-        }
-        catch (UnsupportedEncodingException e)
+        catch (NoSuchAlgorithmException | UnsupportedEncodingException e)
         {
         }
         return null;

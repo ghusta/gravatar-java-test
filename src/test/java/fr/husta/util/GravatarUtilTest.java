@@ -2,8 +2,8 @@ package fr.husta.util;
 
 import java.net.URL;
 
-import junit.framework.Assert;
 
+import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -101,6 +101,18 @@ public class GravatarUtilTest
         url = GravatarUtil.getProfileURLFormatJson(GravatarUtil.getMD5ForEmail(email));
         Assert.assertNotNull(url);
         System.out.println("GH (Profile) --> " + url);
+    }
+
+    @Test
+    public void testGetProfileURL_forGHUSTA_QRCode() throws Exception
+    {
+        String email = null;
+        URL url = null;
+
+        email = EMAIL_GUILLAUME_HUSTA;
+        url = GravatarUtil.getProfileURLFormatQRCode(GravatarUtil.getMD5ForEmail(email));
+        Assert.assertNotNull(url);
+        System.out.println("GH (QRCode) --> " + url);
     }
 
     @Test
