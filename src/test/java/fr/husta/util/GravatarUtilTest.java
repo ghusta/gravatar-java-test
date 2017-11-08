@@ -1,6 +1,7 @@
 package fr.husta.util;
 
 import okhttp3.Call;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -36,6 +37,7 @@ public class GravatarUtilTest
         System.out.println("followSslRedirects: " + okHttpClient.followSslRedirects());
         System.out.println("proxy: " + okHttpClient.proxy());
         System.out.println("proxySelector: " + okHttpClient.proxySelector());
+        System.out.println("cache: " + okHttpClient.cache());
     }
 
     private static Proxy detectProxy()
@@ -118,6 +120,12 @@ public class GravatarUtilTest
         url = GravatarUtil.getImageURL(GravatarUtil.getMD5ForEmail(email));
         Assert.assertNotNull(url);
         System.out.println("GH --> " + url);
+
+        // test URL is valid
+        int responseCode = getURLResponseCode(url);
+        assertThat(responseCode).isEqualTo(200);
+        // test response content-type
+        assertThat(getURLResponseContentType(url)).isEqualTo(MediaType.parse("image/png"));
     }
 
     @Test
@@ -192,6 +200,8 @@ public class GravatarUtilTest
         // test URL is valid
         int responseCode = getURLResponseCode(url);
         assertThat(responseCode).isEqualTo(200);
+        // test response content-type
+        assertThat(getURLResponseContentType(url)).isEqualTo(MediaType.parse("application/json"));
     }
 
     @Test
@@ -204,6 +214,12 @@ public class GravatarUtilTest
         url = GravatarUtil.getProfileURLFormatQRCode(GravatarUtil.getMD5ForEmail(email));
         Assert.assertNotNull(url);
         System.out.println("GH (QRCode) --> " + url);
+
+        // test URL is valid
+        int responseCode = getURLResponseCode(url);
+        assertThat(responseCode).isEqualTo(200);
+        // test response content-type
+        assertThat(getURLResponseContentType(url)).isEqualTo(MediaType.parse("image/png"));
     }
 
     @Test
@@ -286,7 +302,31 @@ public class GravatarUtilTest
             throw new RuntimeException(e);
         }
         return responseCode;
+    }
 
+    private static MediaType getURLResponseContentType(URL url)
+    {
+        // HTTP method = GET
+        Request request = new Request.Builder()
+                .get()
+                .url(url)
+                .build();
+        Call call = okHttpClient.newCall(request);
+        MediaType responseContentType;
+        try
+        {
+            Response response = call.execute();
+            if (response.body() == null)
+            {
+                return null;
+            }
+            responseContentType = response.body().contentType();
+        }
+        catch (IOException e)
+        {
+            throw new RuntimeException(e);
+        }
+        return responseContentType;
     }
 
 }
