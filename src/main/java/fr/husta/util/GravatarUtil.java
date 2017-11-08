@@ -116,62 +116,49 @@ public class GravatarUtil
     /**
      * Inspired from <a href="https://fr.gravatar.com/site/implement/profiles/">Profile Requests</a> (Gravatar.com).
      *
-     * @param emailHash Must be MD5 hash for email.
+     * @param emailHashOrUsername Must be MD5 hash for email.
      * @return
      */
-    public static URL getProfileURL(final String emailHash)
+    public static URL getProfileURL(final String emailHashOrUsername)
     {
         try
         {
-            return new URL(GRAVATAR_PROFILE_REQUEST_URL_PREFIX + emailHash);
+            return new URL(GRAVATAR_PROFILE_REQUEST_URL_PREFIX + emailHashOrUsername);
         } catch (MalformedURLException e)
         {
             throw new RuntimeException(e);
         }
     }
 
-    public static URL getProfileURLFormatXml(final String emailHash)
+    private static URL getProfileURLWithExtension(final String emailHashOrUsername, final String extension)
     {
         try
         {
-            return new URL(GRAVATAR_PROFILE_REQUEST_URL_PREFIX + emailHash + ".xml");
+            return new URL(GRAVATAR_PROFILE_REQUEST_URL_PREFIX + emailHashOrUsername + "." + extension);
         } catch (MalformedURLException e)
         {
             throw new RuntimeException(e);
         }
     }
 
-    public static URL getProfileURLFormatJson(final String emailHash)
+    public static URL getProfileURLFormatXml(final String emailHashOrUsername)
     {
-        try
-        {
-            return new URL(GRAVATAR_PROFILE_REQUEST_URL_PREFIX + emailHash + ".json");
-        } catch (MalformedURLException e)
-        {
-            throw new RuntimeException(e);
-        }
+        return getProfileURLWithExtension(emailHashOrUsername, "xml");
     }
 
-    public static URL getProfileURLFormatQRCode(final String emailHash)
+    public static URL getProfileURLFormatJson(final String emailHashOrUsername)
     {
-        try
-        {
-            return new URL(GRAVATAR_PROFILE_REQUEST_URL_PREFIX + emailHash + ".qr");
-        } catch (MalformedURLException e)
-        {
-            throw new RuntimeException(e);
-        }
+        return getProfileURLWithExtension(emailHashOrUsername, "json");
     }
 
-    public static URL getProfileURLFormatVCard(final String emailHash)
+    public static URL getProfileURLFormatQRCode(final String emailHashOrUsername)
     {
-        try
-        {
-            return new URL(GRAVATAR_PROFILE_REQUEST_URL_PREFIX + emailHash + ".vcf");
-        } catch (MalformedURLException e)
-        {
-            throw new RuntimeException(e);
-        }
+        return getProfileURLWithExtension(emailHashOrUsername, "qr");
+    }
+
+    public static URL getProfileURLFormatVCard(final String emailHashOrUsername)
+    {
+        return getProfileURLWithExtension(emailHashOrUsername, "vcf");
     }
 
 }
