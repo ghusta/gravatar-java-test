@@ -8,8 +8,8 @@ import org.apache.commons.lang3.StringUtils;
 public class GravatarUtil
 {
 
-    public static final String GRAVATAR_IMAGE_REQUEST_URL_PREFIX = "http://www.gravatar.com/avatar/";
-    public static final String GRAVATAR_PROFILE_REQUEST_URL_PREFIX = "http://www.gravatar.com/";
+    public static final String GRAVATAR_IMAGE_REQUEST_URL_PREFIX = "https://www.gravatar.com/avatar/";
+    public static final String GRAVATAR_PROFILE_REQUEST_URL_PREFIX = "https://www.gravatar.com/";
 
     /**
      * Inspired from <a href="https://fr.gravatar.com/site/implement/hash/">Creating the Hash</a> (Gravatar.com).
